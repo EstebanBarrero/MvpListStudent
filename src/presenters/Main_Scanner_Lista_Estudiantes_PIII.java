@@ -5,7 +5,6 @@ import views.View;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Main_Scanner_Lista_Estudiantes_PIII {
 
@@ -14,10 +13,9 @@ public class Main_Scanner_Lista_Estudiantes_PIII {
 
     public void startMenu(){
         int opcion;
-
         do {
             //mostrarMenu();
-            view.menu();
+            view.showMenu();
             opcion = leerOpcion();
 
             switch (opcion) {
@@ -47,7 +45,7 @@ public class Main_Scanner_Lista_Estudiantes_PIII {
         int opcion;
         while (true) {
             try {
-                System.out.print("Ingrese una opción: ");
+                view.enterOption();
                 String input = view.openScannerNextLineTrim();         //para leer la entrada del usuario espacios en blanco adicionales y saltos de línea vacíos
                 if (!input.isEmpty()) {
                     opcion = Integer.parseInt(input);
@@ -69,9 +67,9 @@ public class Main_Scanner_Lista_Estudiantes_PIII {
 
     private static void verEstudiantesRegistrados() {                       //método para leer lista estudiantes
         if (estudiantes.isEmpty()) {                                        //Verifica si la lista de estudiantes está vacía
-            System.out.println("No hay estudiantes registrados.");
+            view.nullResgisterStudents();
         } else {
-            System.out.println("=== Estudiantes Registrados ===");
+            view.showRegisterStudents();
             int index = 0;
             for (Estudiante estudiante : estudiantes) {                     //bucle for-each que recorre la lista de estudiantes
                 System.out.println("Índice " + index + ": " + estudiante);
@@ -82,19 +80,20 @@ public class Main_Scanner_Lista_Estudiantes_PIII {
 
 
     private static void registrarEstudiante() {                             //método para registrar estudiantes
-        System.out.println("=== Registrar Estudiante ===");
+        view.showRegisterStudents();
 
-        System.out.print("Nombres y Apellidos: ");
+        view.nameStudent();
         String nombresApellidos = leerCadenaNoVaciaTexto();                 //valida tipo dato (solo texto)y entrada no vacía
 
-        System.out.print("Código de Estudiante: ");
+        view.studentCode();
         String codigoEstudiante = leerCadenaNoVacia();                      //valida entrada no vacía
 
-        System.out.print("Correo Electrónico: ");
+        view.studentEmail();
         String correoElectronico = leerCadenaNoVaciaCorreo();               //valida tipo dato (tipo correo xxx@.xxx)y entrada no vacía
 
         estudiantes.add(new Estudiante(nombresApellidos, codigoEstudiante, correoElectronico)); // agrega un nuevo objeto Estudiante a la lista de estudiantes estudiantes
-        System.out.println("Estudiante registrado exitosamente.");
+        view.registeredStudent();
+        view.showRegisterStudents();
     }
 
 
@@ -184,7 +183,7 @@ public class Main_Scanner_Lista_Estudiantes_PIII {
                 if (!input.isEmpty()) {
                     return input;
                 }
-                System.out.println("No se permiten campos vacíos. Intente nuevamente.");
+                view.showNotNull();
             } catch (java.util.InputMismatchException e) {
                 view.readError();
             }
@@ -199,7 +198,7 @@ public class Main_Scanner_Lista_Estudiantes_PIII {
                 if (!input.isEmpty() && input.matches(view.textCharacterRestriccion())) {  //método matches para verificar si la cadena input coincide con la expresión regular "^[a-zA-Z\\s]+$"
                     return input;
                 }
-                System.out.println("Ingrese un valor válido (solo texto). Intente nuevamente.");
+                view.showValueTxt();
             } catch (java.util.InputMismatchException e) {
                 view.readError();
             }
