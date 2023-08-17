@@ -10,18 +10,14 @@ import java.util.Scanner;
 public class Main_Scanner_Lista_Estudiantes_PIII {
 
     private static List<Estudiante> estudiantes = new ArrayList<>();
-    private static Scanner scanner = new Scanner(System.in);
-    private static View view;
+    private static View view = new View();
 
-    public Main_Scanner_Lista_Estudiantes_PIII() {
-        view = new View();
-    }
-
-    public static void main(String[] args) {
+    public void startMenu(){
         int opcion;
 
         do {
-            mostrarMenu();
+            //mostrarMenu();
+            view.menu();
             opcion = leerOpcion();
 
             switch (opcion) {
@@ -38,33 +34,21 @@ public class Main_Scanner_Lista_Estudiantes_PIII {
                     eliminarEstudiante();                       // Agregamos la opción para eliminar un estudiante
                     break;
                 case 0:
-                    System.out.println("¡Hasta luego!");
+                    view.closeMenu();
                     break;
                 default:
-                    System.out.println("Opción no válida. Intente nuevamente.");
+                    view.optionInvalidate();
             }
         } while (opcion != 0);
-
-         scanner.close();// Cerrar el scanner al finalizar
+        view.closeScanner();// Cerrar el scanner al finalizar
     }
-
-
-    private static void mostrarMenu() {                         // mostrar opciones menú
-        System.out.println("=== MENÚ - LISTA ESTUDIANTES PROGRAMACIÓN III ===");
-        System.out.println("1. Ver estudiantes registrados");
-        System.out.println("2. Registrar un nuevo estudiante");
-        System.out.println("3. Modificar registro de estudiante");
-        System.out.println("4. Eliminar registro de estudiante");
-        System.out.println("0. Salir");
-    }
-
 
     private static int leerOpcion() {                               // método para leer tipo de dato - opción menú
         int opcion;
         while (true) {
             try {
                 System.out.print("Ingrese una opción: ");
-                String input = scanner.nextLine().trim();         //para leer la entrada del usuario espacios en blanco adicionales y saltos de línea vacíos
+                String input = view.openScannerNextLineTrim();         //para leer la entrada del usuario espacios en blanco adicionales y saltos de línea vacíos
                 if (!input.isEmpty()) {
                     opcion = Integer.parseInt(input);
                     if (opcion >= 0 && opcion <= 4) {
@@ -164,14 +148,14 @@ public class Main_Scanner_Lista_Estudiantes_PIII {
         int indice;
         while (true) {
             try {
-                String input = scanner.nextLine().trim();
+                String input = view.openScannerNextLineTrim();
                 indice = Integer.parseInt(input);
                 if (indice >= 0 && indice < maximo) {
                     break;
                 }
                 System.out.println("Índice no válido. Intente nuevamente.");
             } catch (NumberFormatException e) {
-                System.out.println("Error: Ingrese un número válido.");
+                view.numError();
             }
         }
         return indice;
@@ -181,13 +165,13 @@ public class Main_Scanner_Lista_Estudiantes_PIII {
         String input;
         while (true) {
             try {
-                input = scanner.nextLine().trim();
-                if (!input.isEmpty() && input.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$")) {
+                input = view.openScannerNextLineTrim();
+                if (!input.isEmpty() && input.matches(view.stringNotNull())) {
                     return input;
                 }
                 System.out.println("Ingrese una dirección de correo válida. Intente nuevamente.");
             } catch (java.util.InputMismatchException e) {
-                System.out.println("Error al leer la entrada.");
+                view.readError();
             }
         }
     }
@@ -196,13 +180,13 @@ public class Main_Scanner_Lista_Estudiantes_PIII {
         String input;
         while (true) {
             try {
-                input = scanner.nextLine().trim();
+                input = view.openScannerNextLineTrim();
                 if (!input.isEmpty()) {
                     return input;
                 }
                 System.out.println("No se permiten campos vacíos. Intente nuevamente.");
             } catch (java.util.InputMismatchException e) {
-                System.out.println("Error al leer la entrada.");
+                view.readError();
             }
         }
     }
@@ -211,16 +195,14 @@ public class Main_Scanner_Lista_Estudiantes_PIII {
         String input;
         while (true) {
             try {
-                input = scanner.nextLine().trim();
-                if (!input.isEmpty() && input.matches("^[a-zA-Z\\s]+$")) {  //método matches para verificar si la cadena input coincide con la expresión regular "^[a-zA-Z\\s]+$"
+                input = view.openScannerNextLineTrim();
+                if (!input.isEmpty() && input.matches(view.textCharacterRestriccion())) {  //método matches para verificar si la cadena input coincide con la expresión regular "^[a-zA-Z\\s]+$"
                     return input;
                 }
                 System.out.println("Ingrese un valor válido (solo texto). Intente nuevamente.");
             } catch (java.util.InputMismatchException e) {
-                System.out.println("Error al leer la entrada.");
+                view.readError();
             }
         }
     }
-
-
 }
