@@ -1,7 +1,7 @@
-import presenters.Main_Scanner_Lista_Estudiantes_PIII;
+import presenters.Presenter;
 
 public class Main {
     public static void main(String[] args) {
-        new Main_Scanner_Lista_Estudiantes_PIII().startMenu();
+        new Presenter().startMenu();
     }
 }

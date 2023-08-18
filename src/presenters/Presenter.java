@@ -6,7 +6,7 @@ import views.View;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main_Scanner_Lista_Estudiantes_PIII {
+public class Presenter {
 
     private static List<Estudiante> estudiantes = new ArrayList<>();
     private static View view = new View();
@@ -14,7 +14,6 @@ public class Main_Scanner_Lista_Estudiantes_PIII {
     public void startMenu(){
         int opcion;
         do {
-            //mostrarMenu();
             view.showMenu();
             opcion = leerOpcion();
 
@@ -52,13 +51,13 @@ public class Main_Scanner_Lista_Estudiantes_PIII {
                     if (opcion >= 0 && opcion <= 4) {
                         break;
                     } else {
-                        System.out.println("Opción no válida. Intente nuevamente.");
+                        view.optionInvalidate();
                     }
                 } else {
-                    System.out.println("No se permiten campos vacíos. Intente nuevamente.");
+                    view.showNotNull();
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Error: Ingrese un número válido.");
+                view.numError();
             }
         }
         return opcion;
@@ -67,7 +66,7 @@ public class Main_Scanner_Lista_Estudiantes_PIII {
 
     private static void verEstudiantesRegistrados() {                       //método para leer lista estudiantes
         if (estudiantes.isEmpty()) {                                        //Verifica si la lista de estudiantes está vacía
-            view.nullResgisterStudents();
+            view.showNullResgisterStudents();
         } else {
             view.showRegisterStudents();
             int index = 0;
@@ -82,7 +81,7 @@ public class Main_Scanner_Lista_Estudiantes_PIII {
     private static void registrarEstudiante() {                             //método para registrar estudiantes
         view.showRegisterStudents();
 
-        view.nameStudent();
+        view.showNameStudent();
         String nombresApellidos = leerCadenaNoVaciaTexto();                 //valida tipo dato (solo texto)y entrada no vacía
 
         view.studentCode();
@@ -98,49 +97,49 @@ public class Main_Scanner_Lista_Estudiantes_PIII {
 
 
     private static void modificarEstudiante() {                                        //método para modificar estudiantes registrados en la lista
-        System.out.println("=== Modificar Registro de Estudiante ===");
+        view.showMenuModifiedStudent();
         if (estudiantes.isEmpty()) {
-            System.out.println("No hay estudiantes registrados.");
+            view.showNullResgisterStudents();
             return;
         }
         verEstudiantesRegistrados();
-        System.out.print("Ingrese el índice del estudiante que desea modificar: ");
+        view.showIndexModiedStudent();
         int indice = leerIndiceValido(estudiantes.size());
 
         Estudiante estudianteSeleccionado = estudiantes.get(indice);            //obtiene el estudiante de la lista estudiantes que corresponde al índice especificado y lo almacena en la variable estudianteSeleccionado
 
-        System.out.print("Nuevo Nombres y Apellidos: ");
+        view.showNameStudent();
         String nuevosNombresApellidos = leerCadenaNoVaciaTexto();
 
-        System.out.print("Nuevo Código de Estudiante: ");
+        view.showIdStudent();
         String nuevoCodigoEstudiante = leerCadenaNoVacia();
 
-        System.out.print("Nuevo Correo Electrónico: ");
+        view.showEmailStudent();
         String nuevoCorreoElectronico = leerCadenaNoVaciaCorreo();
 
         estudianteSeleccionado.nombresApellidos = nuevosNombresApellidos;
         estudianteSeleccionado.codigoEstudiante = nuevoCodigoEstudiante;
         estudianteSeleccionado.correoElectronico = nuevoCorreoElectronico;
 
-        System.out.println("Estudiante modificado exitosamente.");
+        view.showModifiedStudent();
     }
 
 
     private static void eliminarEstudiante() {                                      //método para eliminar estudiantes registrados de la lista estudiantes
-        System.out.println("=== Eliminar Registro de Estudiante ===");
+        view.showMenuDeleteStudent();
         if (estudiantes.isEmpty()) {
-            System.out.println("No hay estudiantes registrados.");
+            view.showNullResgisterStudents();
             return;
         }
 
         verEstudiantesRegistrados();
 
-        System.out.print("Ingrese el índice del estudiante que desea eliminar: ");
+
         int indice = leerIndiceValido(estudiantes.size());
 
         estudiantes.remove(indice);
 
-        System.out.println("Estudiante eliminado exitosamente.");
+        view.showDeleteStudent();
     }
 
     private static int leerIndiceValido(int maximo) {   //método complementario a verEstudiantesRegistrados()y otros métodos para validar entrada del índice entre >=0 y (maximo)
@@ -152,7 +151,7 @@ public class Main_Scanner_Lista_Estudiantes_PIII {
                 if (indice >= 0 && indice < maximo) {
                     break;
                 }
-                System.out.println("Índice no válido. Intente nuevamente.");
+                view.invalidateIndex();
             } catch (NumberFormatException e) {
                 view.numError();
             }
@@ -168,7 +167,7 @@ public class Main_Scanner_Lista_Estudiantes_PIII {
                 if (!input.isEmpty() && input.matches(view.stringNotNull())) {
                     return input;
                 }
-                System.out.println("Ingrese una dirección de correo válida. Intente nuevamente.");
+                view.invalidateEmail();
             } catch (java.util.InputMismatchException e) {
                 view.readError();
             }

@@ -22,6 +22,16 @@ public class View {
     public static final String EMAIL_STUDENTS = "Correo Electrónico: ";
     public static final String CODE_STUDENTS = "Código de Estudiante: ";
     public static final String NAMES_STUDENTS = "Nombres y Apellidos: ";
+    public static final String INVALIDATE_EMAIL = "Ingrese una dirección de correo válida. Intente nuevamente.";
+    public static final String MENU_DELETE_STUDENT = "=== Eliminar Registro de Estudiante ===";
+    public static final String MODIFIEND_STUDENT = "Estudiante modificado exitosamente.";
+    public static final String ID_STUDENT = "Nuevo Código de Estudiante: ";
+    public static final String EMAIL_STUDENT = "Nuevo Correo Electrónico: ";
+    public static final String MODIFIED_INDEX_STUDENT = "Ingrese el índice del estudiante que desea modificar: ";
+    public static final String MENU_MODIFIED_STUDENT = "=== Modificar Registro de Estudiante ===";
+    public static final String INDEX_INVALIDATE = "Índice no válido. Intente nuevamente.";
+    public static final String DELETE_STUDENT = "Estudiante eliminado exitosamente.";
+    public static final String INDEX_DELETE_STUDENT = "Ingrese el índice del estudiante que desea eliminar: ";
     private Scanner scanner;
 
     public View() {
@@ -38,8 +48,10 @@ public class View {
     public void showMenu(){
         System.out.println(MAIN_MENU);
     }
-
-    public void nameStudent(){
+    public void showMenuDeleteStudent(){
+        System.out.println(MENU_DELETE_STUDENT);
+    }
+    public void showNameStudent(){
         System.out.print(NAMES_STUDENTS);
     }
     public void studentCode(){
@@ -62,17 +74,44 @@ public class View {
         return READ_TEXT_CHARACTERS;
     }
 
-    public void nullResgisterStudents(){
+    public void showNullResgisterStudents(){
         System.out.println(NULL_REGISTER_STUDENTS);
     }
 
     public void enterOption(){
         System.out.print(ENTER_OPTION);
     }
-
+    public void showModifiedStudent(){
+        System.out.println(MODIFIEND_STUDENT);
+    }
+    public void showEmailStudent(){
+        System.out.print(EMAIL_STUDENT);
+    }
+    public void showIdStudent(){
+        System.out.print(ID_STUDENT);
+    }
+    public void showIndexModiedStudent(){
+        System.out.print(MODIFIED_INDEX_STUDENT);
+    }
+    public void showMenuModifiedStudent (){
+        System.out.println(MENU_MODIFIED_STUDENT);
+    }
     public String stringNotNull(){
         return READ_NOT_NULL;
     }
+    public void invalidateEmail(){
+        System.out.println(INVALIDATE_EMAIL);
+    }
+    public void invalidateIndex(){
+        System.out.println(INDEX_INVALIDATE);
+    }
+    public void showDeleteStudent(){
+        System.out.println(DELETE_STUDENT);
+    }
+    public void showindexDeleteStudent(){
+        System.out.print(INDEX_DELETE_STUDENT);
+    }
+
 
     public void showValueTxt(){
         System.out.println(VALUE_TXT);
