@@ -16,7 +16,6 @@ public class Presenter {
         do {
             view.showMenu();
             opcion = leerOpcion();
-
             switch (opcion) {
                 case 1:
                     verEstudiantesRegistrados();                // Agregamos la opción para ver la lista de estudiantes
@@ -77,7 +76,6 @@ public class Presenter {
         }
     }
 
-
     private static void registrarEstudiante() {                             //método para registrar estudiantes
         view.showRegisterStudents();
 
@@ -133,12 +131,8 @@ public class Presenter {
         }
 
         verEstudiantesRegistrados();
-
-
         int indice = leerIndiceValido(estudiantes.size());
-
         estudiantes.remove(indice);
-
         view.showDeleteStudent();
     }
 
